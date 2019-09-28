@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1566274187466495334}
   - component: {fileID: 1566274187466495332}
   - component: {fileID: 1566274187466495328}
-  - component: {fileID: 1566274187466495329}
   - component: {fileID: 805983632}
+  - component: {fileID: 1566274187466495329}
+  - component: {fileID: 4340287801489905519}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -94,18 +95,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1566274187466495329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566274187466495354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f8f1e9687e769b4c9341af1fe28f9fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &805983632
 Animator:
   serializedVersion: 3
@@ -125,6 +114,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1566274187466495329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566274187466495354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8f1e9687e769b4c9341af1fe28f9fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4340287801489905519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566274187466495354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48dde90a09478d5499cc92f6532971eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6387723141330232291
 PrefabInstance:
   m_ObjectHideFlags: 0
