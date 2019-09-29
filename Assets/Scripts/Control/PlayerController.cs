@@ -7,35 +7,46 @@ using RPG.Combat;
 namespace RPG.control {
 	public class PlayerController : MonoBehaviour {
 		void Update() {
-			CombatInteraction();
-			MovementInteraction();
+			if (CombatInteraction()) {
+				return;
+			}
+			
+			if (MovementInteraction()) {
+				return;
+			}			
 		}
 
-		void CombatInteraction() {
+		bool CombatInteraction() {
 			RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 			foreach(RaycastHit hit in hits) {
 				CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-				if (target) {
-					if (Input.GetMouseButtonDown(0)) {
-						GetComponent<Fighter>().Attack(target);
-					}
+				if (target == null) {
+					continue;
 				}
+
+				if (Input.GetMouseButtonDown(0)) {
+					GetComponent<Fighter>().Attack(target);
+				}
+				
+				return true;
 			}
+
+			return false;
 		}
 
-		void MovementInteraction() {
-			if (Input.GetMouseButton(0)) {
-				MoveToCursor();
-			}
-		}
-
-		void MoveToCursor() {
+		bool MovementInteraction() {
 			RaycastHit hit;
 			bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
 
 			if (hasHit) {
-				GetComponent<Mover>().MoveTo(hit.point);
+				if (Input.GetMouseButton(0)) {
+					GetComponent<Mover>().MoveTo(hit.point);
+				}
+
+				return true;
 			}
+
+			return false;
 		}
 
 		static Ray GetMouseRay() {
