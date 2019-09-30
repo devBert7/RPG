@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
-using RPG.Combat;
 
 namespace RPG.Combat {
 	public class Fighter : MonoBehaviour, IAction {
@@ -42,7 +41,7 @@ namespace RPG.Combat {
 
 		// Animation Event
 		void Hit() {
-			target.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
+			target.GetComponent<Health>().TakeDamage(weaponDamage);
 		}
 
 		bool GetIsInRange() {
