@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Combat;
 
 namespace RPG.Combat {
 	public class Fighter : MonoBehaviour, IAction {
 		[SerializeField] float weaponRange = 2f;
 		[SerializeField] float timeBetweenAttacks = 1f;
+		[SerializeField] float weaponDamage = 10f;
 
 		Transform target;
 		float timeSinceLastAttack;
@@ -38,6 +40,11 @@ namespace RPG.Combat {
 			}
 		}
 
+		// Animation Event
+		void Hit() {
+			target.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
+		}
+
 		bool GetIsInRange() {
 			return Vector3.Distance(target.position, transform.position) < weaponRange;
 		}
@@ -49,11 +56,6 @@ namespace RPG.Combat {
 
 		public void Cancel() {
 			target = null;
-		}
-
-		// Animation Event
-		void Hit() {
-			
 		}
 	}
 }
