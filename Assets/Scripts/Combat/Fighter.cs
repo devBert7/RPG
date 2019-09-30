@@ -5,7 +5,7 @@ using RPG.Movement;
 using RPG.Core;
 
 namespace RPG.Combat {
-	public class Fighter : MonoBehaviour {
+	public class Fighter : MonoBehaviour, IAction {
 		[SerializeField] float weaponRange = 2f;
 
 		Transform target;
@@ -23,7 +23,7 @@ namespace RPG.Combat {
 			if (!GetIsInRange()) {
 				mover.MoveTo(target.position);
 			} else {
-				mover.Stop();
+				mover.Cancel();
 			}
 		}
 
