@@ -20,11 +20,8 @@ namespace RPG.Combat {
 
 		void Update() {
 			timeSinceLastAttack += Time.deltaTime;
-			if (target == null) {
-				return;
-			}
 
-			if (target.IsDead()) {
+			if (target == null || target.IsDead()) {
 				return;
 			}
 
@@ -52,6 +49,16 @@ namespace RPG.Combat {
 
 		bool GetIsInRange() {
 			return Vector3.Distance(target.transform.position, transform.position) < weaponRange;
+		}
+
+		public bool CanAttack(CombatTarget combatTarget) {
+			if (combatTarget == null) {
+				return false;
+			}
+			
+			Health testTarget = combatTarget.GetComponent<Health>();
+
+			return testTarget != null && !testTarget.IsDead();
 		}
 
 		public void Attack(CombatTarget combatTarget) {

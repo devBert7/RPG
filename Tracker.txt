@@ -1,0 +1,7 @@
+Fighter.cs
+	Health target;
+		"Attack(combatTarget)" > target = combatTarget.GetComponent<Health>().
+			PlayerController.cs > "CombatInteraction()" > CombatTarget target = hit.transform.GetComponent<CombatTarget>();
+
+Fighter.cs
+	
