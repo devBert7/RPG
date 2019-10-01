@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Combat {
+namespace RPG.Core {
 	public class Health : MonoBehaviour {
 		[SerializeField] float health = 100f;
 
@@ -16,8 +16,9 @@ namespace RPG.Combat {
 			health = Mathf.Max(health - damage, 0);
 
 			if (health == 0 && !isDead) {
-				GetComponent<Animator>().SetTrigger("Die");
 				isDead = true;
+				GetComponent<Animator>().SetTrigger("Die");
+				GetComponent<ActionScheduler>().CancelCurrentAction();
 			}
 		}
 	}

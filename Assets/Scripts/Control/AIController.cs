@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control {
 	public class AIController : MonoBehaviour {
@@ -9,14 +10,19 @@ namespace RPG.Control {
 
 		Fighter fighter;
 		GameObject player;
+		Health health;
 
 		void Start() {
 			fighter = GetComponent<Fighter>();
 			player = GameObject.FindWithTag("Player");
+			health = GetComponent<Health>();
 		}
 
 		void Update() {
-			GameObject player = GameObject.FindWithTag("Player");
+			if (health.IsDead()) {
+				return;
+			}
+
 			bool inAttackRange = Vector3.Distance(player.transform.position, transform.position) <= chaseDistance;
 
 			if (inAttackRange && fighter.CanAttack(player)) {
