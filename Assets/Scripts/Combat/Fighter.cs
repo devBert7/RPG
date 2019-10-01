@@ -28,6 +28,8 @@ namespace RPG.Combat {
 				return;
 			}
 
+			transform.LookAt(target.transform);
+
 			if (!GetIsInRange()) {
 				mover.MoveTo(target.transform.position);
 			} else {
