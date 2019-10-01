@@ -6,7 +6,7 @@ using RPG.Core;
 
 namespace RPG.Combat {
 	public class Fighter : MonoBehaviour, IAction {
-		[SerializeField] float weaponRange = 2f;
+		[SerializeField] float weaponRange = 1f;
 		[SerializeField] float timeBetweenAttacks = 1f;
 		[SerializeField] float weaponDamage = 10f;
 
@@ -56,17 +56,13 @@ namespace RPG.Combat {
 			return Vector3.Distance(target.transform.position, transform.position) < weaponRange;
 		}
 
-		public bool CanAttack(CombatTarget combatTarget) {
-			if (combatTarget == null) {
-				return false;
-			}
-			
+		public bool CanAttack(GameObject combatTarget) {
 			Health testTarget = combatTarget.GetComponent<Health>();
 
 			return testTarget != null && !testTarget.IsDead();
 		}
 
-		public void Attack(CombatTarget combatTarget) {
+		public void Attack(GameObject combatTarget) {
 			GetComponent<ActionScheduler>().StartAction(this);
 			target = combatTarget.GetComponent<Health>();
 		}

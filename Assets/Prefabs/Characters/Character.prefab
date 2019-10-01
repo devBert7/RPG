@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637847904438df1488469028d35310bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRange: 2
+  weaponRange: 1
   timeBetweenAttacks: 1
   weaponDamage: 10
 --- !u!114 &6662166283856076422
