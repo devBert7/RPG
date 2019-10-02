@@ -30,6 +30,11 @@ namespace RPG.Control {
 			} else {
 				fighter.Cancel();
 			}
-		}	
+		}
+
+		void OnDrawGizmosSelected() {
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(transform.position, chaseDistance);
+		}
 	}
 }
