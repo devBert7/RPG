@@ -9,13 +9,17 @@ namespace RPG.Control {
 	public class AIController : MonoBehaviour {
 		[SerializeField] float chaseDistance = 5f;
 		[SerializeField] float suspicionTime = 5f;
+		[SerializeField] PatrolPath patrolPath;
+		[SerializeField] float waypointTolerance = 1f;
 
 		Fighter fighter;
 		GameObject player;
 		Health health;
-		Vector3 guardPosition;
 		Mover mover;
+		
+		Vector3 guardPosition;
 		float timeSinceChase = Mathf.Infinity;
+		int currentWaypointIndex = 0;
 
 		void Start() {
 			fighter = GetComponent<Fighter>();
@@ -34,14 +38,49 @@ namespace RPG.Control {
 
 			if (inAttackRange && fighter.CanAttack(player)) {
 				timeSinceChase = 0;
-				fighter.Attack(player);
+				AttackBehavior();
 			} else if (timeSinceChase < suspicionTime) {
-				GetComponent<ActionScheduler>().CancelCurrentAction();
+				SuspicionBehavior();
 			} else {
-				mover.StartMovementAction(guardPosition);
+				PatrolBehavior();
 			}
 
 			timeSinceChase += Time.deltaTime;
+		}
+
+		void AttackBehavior() {
+			fighter.Attack(player);
+		}
+
+		void SuspicionBehavior() {
+			GetComponent<ActionScheduler>().CancelCurrentAction();
+		}
+
+		void PatrolBehavior() {
+			Vector3 nextPosition = guardPosition;
+
+			if (patrolPath != null) {
+				if (AtWaypoint()) {
+					CycleWaypoint();
+				}
+
+				nextPosition = GetCurrentWaypoint();
+			}
+
+			mover.StartMovementAction(nextPosition);
+		}
+
+		bool AtWaypoint() {
+			float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
+			return distanceToWaypoint < waypointTolerance;
+		}
+
+		void CycleWaypoint() {
+			currentWaypointIndex = patrolPath.GetNextWaypoint(currentWaypointIndex);
+		}
+
+		Vector3 GetCurrentWaypoint() {
+			return patrolPath.GetWaypoint(currentWaypointIndex);
 		}
 
 		void OnDrawGizmosSelected() {
