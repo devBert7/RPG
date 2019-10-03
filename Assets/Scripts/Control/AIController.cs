@@ -9,6 +9,7 @@ namespace RPG.Control {
 	public class AIController : MonoBehaviour {
 		[SerializeField] float chaseDistance = 5f;
 		[SerializeField] float suspicionTime = 5f;
+		[SerializeField] float dwellTime = 3f;
 		[SerializeField] PatrolPath patrolPath;
 		[SerializeField] float waypointTolerance = 1f;
 
@@ -19,6 +20,7 @@ namespace RPG.Control {
 		
 		Vector3 guardPosition;
 		float timeSinceChase = Mathf.Infinity;
+		float timeSinceDwell = Mathf.Infinity;
 		int currentWaypointIndex = 0;
 
 		void Start() {
@@ -37,7 +39,6 @@ namespace RPG.Control {
 			bool inAttackRange = Vector3.Distance(player.transform.position, transform.position) <= chaseDistance;
 
 			if (inAttackRange && fighter.CanAttack(player)) {
-				timeSinceChase = 0;
 				AttackBehavior();
 			} else if (timeSinceChase < suspicionTime) {
 				SuspicionBehavior();
@@ -45,10 +46,11 @@ namespace RPG.Control {
 				PatrolBehavior();
 			}
 
-			timeSinceChase += Time.deltaTime;
+			UpdateTimers();
 		}
 
 		void AttackBehavior() {
+			timeSinceChase = 0;
 			fighter.Attack(player);
 		}
 
@@ -61,13 +63,21 @@ namespace RPG.Control {
 
 			if (patrolPath != null) {
 				if (AtWaypoint()) {
+					timeSinceDwell = 0f;
 					CycleWaypoint();
 				}
 
 				nextPosition = GetCurrentWaypoint();
 			}
 
-			mover.StartMovementAction(nextPosition);
+			if (timeSinceDwell > dwellTime) {
+				mover.StartMovementAction(nextPosition);
+			}
+		}
+
+		void UpdateTimers() {
+			timeSinceChase += Time.deltaTime;
+			timeSinceDwell += Time.deltaTime;
 		}
 
 		bool AtWaypoint() {
