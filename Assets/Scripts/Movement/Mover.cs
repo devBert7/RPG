@@ -6,13 +6,15 @@ using RPG.Core;
 
 namespace RPG.Movement {
 	public class Mover : MonoBehaviour, IAction {
-		 NavMeshAgent navMeshAgent;
-		 Health health;
+		[SerializeField] float maxSpeed = 6f;
 
-		 void Start() {
-		 	health = GetComponent<Health>();
-		 	navMeshAgent = GetComponent<NavMeshAgent>();
-		 }
+		NavMeshAgent navMeshAgent;
+		Health health;
+
+		void Start() {
+			health = GetComponent<Health>();
+			navMeshAgent = GetComponent<NavMeshAgent>();
+		}
 
 		void Update() {
 			navMeshAgent.enabled = !health.IsDead();
@@ -20,13 +22,14 @@ namespace RPG.Movement {
 			UpdateAnimator();
 		}
 
-		public void StartMovementAction(Vector3 destination) {
+		public void StartMovementAction(Vector3 destination, float speedFraction) {
 			GetComponent<ActionScheduler>().StartAction(this);
-			MoveTo(destination);
+			MoveTo(destination, speedFraction);
 		}
 
-		public void MoveTo(Vector3 destination) {
+		public void MoveTo(Vector3 destination, float speedFraction) {
 			navMeshAgent.destination = destination;
+			navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
 			navMeshAgent.isStopped = false;
 		}
 

@@ -28,7 +28,7 @@ namespace RPG.Combat {
 			transform.LookAt(target.transform);
 
 			if (!GetIsInRange()) {
-				mover.MoveTo(target.transform.position);
+				mover.MoveTo(target.transform.position, 1f);
 			} else {
 				mover.Cancel();
 				AttackBehaviour();
