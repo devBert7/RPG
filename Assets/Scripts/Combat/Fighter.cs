@@ -71,6 +71,7 @@ namespace RPG.Combat {
 			GetComponent<Animator>().ResetTrigger("Attack");
 			GetComponent<Animator>().SetTrigger("StopAttack");
 			target = null;
+			GetComponent<Mover>().Cancel();
 		}
 	}
 }

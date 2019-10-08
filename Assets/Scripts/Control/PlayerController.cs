@@ -5,7 +5,7 @@ using RPG.Movement;
 using RPG.Combat;
 using RPG.Core;
 
-namespace RPG.control {
+namespace RPG.Control {
 	public class PlayerController : MonoBehaviour {
 		Health health;
 
@@ -17,6 +17,7 @@ namespace RPG.control {
 			if (health.IsDead()) {
 				return;
 			}
+			
 			if (CombatInteraction()) {
 				return;
 			}
