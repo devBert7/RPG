@@ -5,12 +5,18 @@ using RPG.Saving;
 
 namespace RPG.SceneManagement {
 	public class SavingWrapper : MonoBehaviour {
+		[SerializeField] float fadeInTime = 1f;
+
 		const string defaultSaveFile = "save";
 
 		SavingSystem saveSys;
 
-		void Start() {
+		IEnumerator Start() {
+			Fader fader = FindObjectOfType<Fader>();
+			fader.FadeOutImmediate();
 			saveSys = GetComponent<SavingSystem>();
+			yield return saveSys.LoadLastScene(defaultSaveFile);
+			yield return fader.FadeIn(fadeInTime);
 		}
 
 		void Update() {

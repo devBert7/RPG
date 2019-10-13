@@ -28,6 +28,10 @@ namespace RPG.SceneManagement {
 				canvasGroup.alpha -= Time.deltaTime / time;
 				yield return null;
 			}
+		}
+
+		public void FadeOutImmediate() {
+			canvasGroup.alpha = 1;
 		}	
 	}
 }
