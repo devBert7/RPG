@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using UnityEngine.AI;
 
 namespace RPG.SceneManagement {
 	public class Portal : MonoBehaviour {
@@ -41,11 +42,16 @@ namespace RPG.SceneManagement {
 
 			yield return fader.FadeOut(fadeOutTime);
 
+			SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+			wrapper.Save();
+
 			if (nextSceneIndex < SceneManager.sceneCountInBuildSettings) {
 				yield return SceneManager.LoadSceneAsync(nextSceneIndex);
 			} else {
 				yield return SceneManager.LoadSceneAsync(0);
 			}
+
+			wrapper.Load();
 
 			Portal otherPortal = GetOtherPortal();
 			UpdatePlayerPos(otherPortal);
@@ -74,8 +80,10 @@ namespace RPG.SceneManagement {
 
 		void UpdatePlayerPos(Portal otherPortal) {
 			GameObject player = GameObject.FindWithTag("Player");
+			player.GetComponent<NavMeshAgent>().enabled = false;
 			player.transform.position = otherPortal.spawnPoint.position;
 			player.transform.rotation = otherPortal.spawnPoint.rotation;
+			player.GetComponent<NavMeshAgent>().enabled = true;
 		}
 	}
 }

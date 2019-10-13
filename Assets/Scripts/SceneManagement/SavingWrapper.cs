@@ -23,11 +23,11 @@ namespace RPG.SceneManagement {
 			}
 		}
 
-		void Load() {
+		public void Load() {
 			saveSys.Load(defaultSaveFile);
 		}
 
-		void Save() {
+		public void Save() {
 			saveSys.Save(defaultSaveFile);
 		}
 	}
