@@ -7,7 +7,8 @@ using RPG.Core;
 namespace RPG.Combat {
 	public class Fighter : MonoBehaviour, IAction {
 		[SerializeField] float timeBetweenAttacks = 1f;
-		[SerializeField] Transform handTransform = null;
+		[SerializeField] Transform rightHandTransform = null;
+		[SerializeField] Transform leftHandTransform = null;
 		[SerializeField] Weapon defaultWeapon = null;
 
 		Health target;
@@ -38,13 +39,9 @@ namespace RPG.Combat {
 		}
 
 		public void EquipWeapon(Weapon weapon) {
-			// if (weapon == null) {
-			// 	return;
-			// }
-
 			currentWeapon = weapon;
 			Animator animator = GetComponent<Animator>();
-			weapon.Spawn(handTransform, animator);
+			weapon.Spawn(rightHandTransform, leftHandTransform, animator);
 		}
 
 		void AttackBehaviour() {

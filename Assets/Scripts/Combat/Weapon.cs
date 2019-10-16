@@ -7,11 +7,21 @@ namespace RPG.Combat {
 		[SerializeField] GameObject equippedPrefab = null;
 		[SerializeField] float weaponRange = 1f;
 		[SerializeField] float weaponDamage = 10f;
+		[SerializeField] bool isRightHanded = true;
 
-		public void Spawn(Transform handTransform, Animator animator) {
+		public void Spawn(Transform rightHand, Transform leftHand, Animator animator) {
 			if (equippedPrefab != null) {
+				Transform handTransform;
+
+				if (isRightHanded) {
+					handTransform = rightHand;
+				} else {
+					handTransform = leftHand;
+				}
+				
 				Instantiate(equippedPrefab, handTransform);
 			}
+
 			if (animatorOverride != null) {
 				animator.runtimeAnimatorController = animatorOverride;
 			}
