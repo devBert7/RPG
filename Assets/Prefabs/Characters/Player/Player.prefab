@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6867210635153668665, guid: 8a9492b066b01e24c889092b41375878,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2533395385633778890, guid: 8a9492b066b01e24c889092b41375878,
         type: 3}
       propertyPath: health
@@ -136,11 +141,6 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 8029136678135361807}
-    - target: {fileID: 6867210635153668665, guid: 8a9492b066b01e24c889092b41375878,
-        type: 3}
-      propertyPath: uniqueIdentifier
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a9492b066b01e24c889092b41375878, type: 3}
 --- !u!1 &1549443715068305531 stripped
