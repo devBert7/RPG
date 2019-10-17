@@ -44,6 +44,7 @@ namespace RPG.Combat {
 
 		void OnTriggerEnter(Collider other) {
 			if (other.GetComponent<Health>() != target) {
+				Invoke("RemoveObject", 5f);
 				return;
 			}
 
@@ -53,6 +54,10 @@ namespace RPG.Combat {
 
 			target.TakeDamage(damage);
 
+			Destroy(gameObject);
+		}
+
+		void RemoveObject() {
 			Destroy(gameObject);
 		}
 	}
