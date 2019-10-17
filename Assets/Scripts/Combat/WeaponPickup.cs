@@ -8,7 +8,6 @@ namespace RPG.Combat {
 
 		void OnTriggerEnter(Collider other) {
 			if (other.tag == "Player") {
-				print("Player Colliding With Sword");
 				other.GetComponent<Fighter>().EquipWeapon(weapon);
 				Destroy(gameObject);
 			}
