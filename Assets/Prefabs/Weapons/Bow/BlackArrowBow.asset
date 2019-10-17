@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2027ddb80a0636f498fab92ce477fc06, type: 3}
-  m_Name: PlayerBow
+  m_Name: BlackArrowBow
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: ee4f317f50366f342a6d524a38b531aa, type: 2}
   equippedPrefab: {fileID: 2592492587191815645, guid: 539fd851c278a384384cbc27b07234c4,
     type: 3}
   weaponRange: 10
-  weaponDamage: 15
+  weaponDamage: 10
   isRightHanded: 0
-  projectile: {fileID: 1200694644557844176, guid: 2e03a877e65e1644fbefa59f4b5726fa,
+  projectile: {fileID: 1200694644557844176, guid: eb5bec9d358773c43ba804c9150c490e,
     type: 3}
