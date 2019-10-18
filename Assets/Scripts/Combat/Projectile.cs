@@ -5,8 +5,12 @@ using RPG.Core;
 
 namespace RPG.Combat {
 	public class Projectile : MonoBehaviour{
-		[SerializeField] float arrowSpeed = 10f;
+		[SerializeField] float speed = 10f;
 		[SerializeField] bool isHoming = true;
+		[SerializeField] GameObject hitEffect = null;
+		[SerializeField] GameObject[] destroyOnHit = null;
+		[SerializeField] float maxLifetime = 10f;
+		[SerializeField] float lifeAfterImpact = 2f;
 		
 		float damage = 0;
 		Health target = null;
@@ -24,12 +28,14 @@ namespace RPG.Combat {
 				transform.LookAt(GetAimLocation());
 			}
 
-			transform.Translate(Vector3.forward * arrowSpeed * Time.deltaTime);
+			transform.Translate(Vector3.forward * speed * Time.deltaTime);
 		}
 
 		public void SetTarget(Health target, float damage) {
 			this.target = target;
 			this.damage = damage;
+
+			Destroy(gameObject, maxLifetime);
 		}
 
 		Vector3 GetAimLocation() {
@@ -44,7 +50,6 @@ namespace RPG.Combat {
 
 		void OnTriggerEnter(Collider other) {
 			if (other.GetComponent<Health>() != target) {
-				Invoke("RemoveObject", 5f);
 				return;
 			}
 
@@ -54,11 +59,17 @@ namespace RPG.Combat {
 
 			target.TakeDamage(damage);
 
-			Destroy(gameObject);
-		}
+			speed = 0;
+			
+			if (hitEffect != null) {
+				Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+			}
 
-		void RemoveObject() {
-			Destroy(gameObject);
+			foreach (GameObject toDestroy in destroyOnHit) {
+				Destroy(toDestroy);
+			}
+
+			Destroy(gameObject, lifeAfterImpact);
 		}
 	}
 }
